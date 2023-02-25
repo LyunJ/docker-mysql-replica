@@ -1,0 +1,82 @@
+version: "3.9"
+services:
+  mysql-source:
+    build:
+      context: ./
+      dockerfile: dockerfile/source.dockerfile
+    stdin_open: true
+    tty: true
+    ports:
+      - 13306:3306
+    networks:
+      - mysql-replica
+    volumes:
+      - mysql-source-data:/var/lib/mysql
+      - mysql-source-data:/var/lib/mysql-files
+    environment:
+      MYSQL_ROOT_PASSWORD: Gkdldyfp77@
+  
+  mysql-replica1:
+    build:
+      context: ./
+      dockerfile: dockerfile/replica1.dockerfile
+    stdin_open: true
+    tty: true
+    ports:
+      - 13307:3306
+    networks:
+      - mysql-replica
+    volumes:
+      - mysql-replica1-data:/var/lib/mysql
+      - mysql-replica1-data:/var/lib/mysql-files
+    environment:
+      MYSQL_ROOT_PASSWORD: Gkdldyfp77@
+    depends_on:
+      - mysql-source
+    
+  mysql-replica2:
+    build:
+      context: ./
+      dockerfile: dockerfile/replica2.dockerfile
+    stdin_open: true
+    tty: true
+    ports:
+      - 13308:3306
+    networks:
+      - mysql-replica
+    volumes:
+      - mysql-replica2-data:/var/lib/mysql
+      - mysql-replica2-data:/var/lib/mysql-files
+    environment:
+      MYSQL_ROOT_PASSWORD: Gkdldyfp77@
+    depends_on:
+      - mysql-source
+
+  mysql-replica3:
+    build:
+      context: ./
+      dockerfile: dockerfile/replica3.dockerfile
+    stdin_open: true
+    tty: true
+    ports:
+      - 13309:3306
+    networks:
+      - mysql-replica
+    volumes:
+      - mysql-replica3-data:/var/lib/mysql
+      - mysql-replica3-data:/var/lib/mysql-files
+    environment:
+      MYSQL_ROOT_PASSWORD: Gkdldyfp77@
+    depends_on:
+      - mysql-source
+
+volumes:
+  mysql-source-data:
+  mysql-replica1-data:
+  mysql-replica2-data:
+  mysql-replica3-data:
+
+
+networks:
+  mysql-replica:
+    driver: bridge
