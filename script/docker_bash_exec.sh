@@ -24,10 +24,13 @@ while read line; do
     ((LINECOUNTER++))
 done <<< $DOCKERPS
 
-PS3="Please select container id for connect ==> "
+echo "--------------------------------------------------------------------"
+echo "Please select container id for connect"
+echo "--------------------------------------------------------------------"
+PS3=":"
 select CONTAINERNAME in $CONTAINERNAMES
 do
-    echo "selected container : $CONTAINERNAME \n"
+    echo "#### Selected container : $CONTAINERNAME ####\n"
     break
 done
 
@@ -38,6 +41,6 @@ for (( i = 0; i < ${#CONTAINERIDCANDIDATES[@]}; i++ )); do
     fi
 done
 
-echo "Connecting to $CONTAINERNAME : $SELECTEDCONTAINERID \n"
+echo "Connecting to \"$CONTAINERNAME : $SELECTEDCONTAINERID\" \n"
 
 docker exec -it $SELECTEDCONTAINERID /bin/bash
