@@ -15,6 +15,7 @@ services:
       - mysql-source-data:/var/lib/mysql-files
     environment:
       MYSQL_ROOT_PASSWORD: Gkdldyfp77@
+      MYSQL_DATABASE: playground
   
   mysql-replica1:
     build:
@@ -31,6 +32,7 @@ services:
       - mysql-replica1-data:/var/lib/mysql-files
     environment:
       MYSQL_ROOT_PASSWORD: Gkdldyfp77@
+      MYSQL_DATABASE: playground
     depends_on:
       - mysql-source
     
@@ -49,6 +51,7 @@ services:
       - mysql-replica2-data:/var/lib/mysql-files
     environment:
       MYSQL_ROOT_PASSWORD: Gkdldyfp77@
+      MYSQL_DATABASE: playground
     depends_on:
       - mysql-source
 
@@ -67,6 +70,7 @@ services:
       - mysql-replica3-data:/var/lib/mysql-files
     environment:
       MYSQL_ROOT_PASSWORD: Gkdldyfp77@
+      MYSQL_DATABASE: playground
     depends_on:
       - mysql-source
 

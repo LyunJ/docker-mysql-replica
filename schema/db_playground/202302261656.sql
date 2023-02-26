@@ -1,0 +1,10 @@
+USE playground;
+CREATE TABLE `CHATROOM_MEMBER` (
+	`chatroom_id`	INT	NOT NULL,
+	`user_id`	INT	NOT NULL ,
+	`create_dt`	DATETIME	NOT NULL	DEFAULT NOW(),
+	`update_dt`	DATETIME	NOT NULL	DEFAULT NOW() ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY(`chatroom_id`,`user_id`),
+    FOREIGN KEY(`chatroom_id`) REFERENCES CHATROOM(`id`) ON UPDATE CASCADE,
+    FOREIGN KEY(`user_id`) REFERENCES USER(`id`) ON UPDATE CASCADE
+);
