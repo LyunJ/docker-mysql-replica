@@ -9,12 +9,13 @@ services:
     ports:
       - 13306:3306
     networks:
-      - mysql-replica
+        mysql-replica:
+          ipv4_address: 172.18.0.2
     volumes:
       - mysql-source-data:/var/lib/mysql
       - mysql-source-data:/var/lib/mysql-files
     environment:
-      MYSQL_ROOT_PASSWORD: Gkdldyfp77@
+      MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: playground
   
   mysql-replica1:
@@ -26,15 +27,17 @@ services:
     ports:
       - 13307:3306
     networks:
-      - mysql-replica
+      mysql-replica:
+          ipv4_address: 172.18.0.3
     volumes:
       - mysql-replica1-data:/var/lib/mysql
       - mysql-replica1-data:/var/lib/mysql-files
     environment:
-      MYSQL_ROOT_PASSWORD: Gkdldyfp77@
+      MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: playground
     depends_on:
       - mysql-source
+
     
   mysql-replica2:
     build:
@@ -45,12 +48,13 @@ services:
     ports:
       - 13308:3306
     networks:
-      - mysql-replica
+      mysql-replica:
+          ipv4_address: 172.18.0.4
     volumes:
       - mysql-replica2-data:/var/lib/mysql
       - mysql-replica2-data:/var/lib/mysql-files
     environment:
-      MYSQL_ROOT_PASSWORD: Gkdldyfp77@
+      MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: playground
     depends_on:
       - mysql-source
@@ -64,12 +68,13 @@ services:
     ports:
       - 13309:3306
     networks:
-      - mysql-replica
+      mysql-replica:
+          ipv4_address: 172.18.0.5
     volumes:
       - mysql-replica3-data:/var/lib/mysql
       - mysql-replica3-data:/var/lib/mysql-files
     environment:
-      MYSQL_ROOT_PASSWORD: Gkdldyfp77@
+      MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: playground
     depends_on:
       - mysql-source
@@ -84,3 +89,7 @@ volumes:
 networks:
   mysql-replica:
     driver: bridge
+    ipam:
+      config:
+        - subnet: 172.18.0.0/16
+          gateway: 172.18.0.1
