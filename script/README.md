@@ -12,3 +12,12 @@ mysql-source에 덤프 파일 load하는 스크립트
 ```
 docker exec -i mysql-source-mysql-source-1 sh -c 'exec mysql -uroot -p"$MYSQL_ROOT_PASSWORD"' < $1
 ```
+
+## dockerfile_init.sh
+도커를 실행 후 Replica 설정을 위해 실행해야하는 스크립트
+
+## docker_mysql_dump.sh
+playground 데이터베이스 백업파일 생성
+
+## docker_mysql_restore.sh
+playground 데이터베이스 복원
